@@ -70,9 +70,12 @@ def srgb_from_XYZ(xyz_rel: np.ndarray, observer: str) -> tuple[np.ndarray, bool]
     """
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
-        rgb = colour.XYZ_to_sRGB(xyz_rel, illuminant=white_point_xy(observer),
-                                 chromatic_adaptation_transform="CAT02",
-                                 apply_cctf_encoding=False)
+        rgb = colour.XYZ_to_sRGB(
+            xyz_rel,
+            illuminant=white_point_xy(observer),
+            chromatic_adaptation_transform="CAT02",
+            apply_cctf_encoding=False,
+        )
     rgb = np.asarray(rgb, dtype=float)
     in_gamut = bool(rgb.min() >= -1e-9)
     if not in_gamut:
@@ -165,8 +168,11 @@ def scotopic_ratio(spectrum: Spectrum) -> dict:
     return {"photopic": float(p), "scotopic": float(s), "s_over_p": float(s / p) if p else None}
 
 
-def compare_observers(spectrum: Spectrum, observers: tuple[str, ...] | list[str] = DEFAULT_OBSERVERS,
-                      include_scotopic: bool = True) -> dict:
+def compare_observers(
+    spectrum: Spectrum,
+    observers: tuple[str, ...] | list[str] = DEFAULT_OBSERVERS,
+    include_scotopic: bool = True,
+) -> dict:
     """Colour of one spectrum under several observers, with pairwise differences."""
     results = [observer_color(spectrum, o) for o in observers]
     out: dict = {
@@ -175,24 +181,31 @@ def compare_observers(spectrum: Spectrum, observers: tuple[str, ...] | list[str]
         "observers": [r.to_dict() for r in results],
         "differences": [],
         "notes": [
-            (f"XYZ/Lab are scaled to Y={REFERENCE_Y:g} (white=100) so colours are compared at equal "
-             "lightness; chromaticities (xy, u'v') do not depend on this."),
-            ("Lab and sRGB use each observer's own D65 white; non-2° observers are mapped to sRGB "
-             "via CAT02 adaptation of their D65 white to sRGB white (approximation)."),
+            (
+                f"XYZ/Lab are scaled to Y={REFERENCE_Y:g} (white=100) so colours are compared at equal "
+                "lightness; chromaticities (xy, u'v') do not depend on this."
+            ),
+            (
+                "Lab and sRGB use each observer's own D65 white; non-2° observers are mapped to sRGB "
+                "via CAT02 adaptation of their D65 white to sRGB white (approximation)."
+            ),
         ],
     }
     for i in range(len(results)):
         for j in range(i + 1, len(results)):
             a, b = results[i], results[j]
-            out["differences"].append({
-                "pair": [a.observer, b.observer],
-                "delta_xy": round(float(np.linalg.norm(np.subtract(a.xy, b.xy))), 5),
-                "delta_uv_prime": round(float(np.linalg.norm(np.subtract(a.uv_prime, b.uv_prime))), 5),
-                "delta_E2000": round(float(colour.delta_E(a.Lab, b.Lab, method="CIE 2000")), 3),
-                "delta_dominant_wavelength_nm": round(
-                    b.dominant_wavelength_nm - a.dominant_wavelength_nm, 2),
-                "srgb": [a.srgb_hex, b.srgb_hex],
-            })
+            out["differences"].append(
+                {
+                    "pair": [a.observer, b.observer],
+                    "delta_xy": round(float(np.linalg.norm(np.subtract(a.xy, b.xy))), 5),
+                    "delta_uv_prime": round(float(np.linalg.norm(np.subtract(a.uv_prime, b.uv_prime))), 5),
+                    "delta_E2000": round(float(colour.delta_E(a.Lab, b.Lab, method="CIE 2000")), 3),
+                    "delta_dominant_wavelength_nm": round(
+                        b.dominant_wavelength_nm - a.dominant_wavelength_nm, 2
+                    ),
+                    "srgb": [a.srgb_hex, b.srgb_hex],
+                }
+            )
     if include_scotopic:
         out["scotopic"] = scotopic_ratio(spectrum)
     return out

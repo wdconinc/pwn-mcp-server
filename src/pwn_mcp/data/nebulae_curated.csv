@@ -1,0 +1,19 @@
+# Showcase non-PWN nebulae. Positions are filled from SIMBAD by scripts/build_local_catalog.py.
+# kind: snr | hii | pn
+name,aliases,kind,simbad_id,green_snr,color_template,notes
+Cassiopeia A,3C 461,snr,Cassiopeia A,G111.7-02.1,,Youngest known Galactic core-collapse SNR
+Tycho's SNR,SN 1572;3C 10,snr,SN 1572,G120.1+01.4,,Type Ia
+Cygnus Loop,,snr,Cygnus Loop,G074.0-08.5,snr_radiative_shock,Classic radiative-shock filaments
+IC 443,Jellyfish Nebula,snr,IC 443,G189.1+03.0,snr_radiative_shock,
+Orion Nebula,M42,hii,M42,,hii_region,
+Lagoon Nebula,M8,hii,M8,,hii_region,
+Eagle Nebula,M16,hii,M16,,hii_region,
+Rosette Nebula,NGC 2237,hii,Rosette Nebula,,hii_region,
+North America Nebula,NGC 7000,hii,NGC 7000,,hii_region,
+W3,,hii,W3,,hii_region,
+Heart Nebula,W4;IC 1805,hii,IC 1805,,hii_region,
+Ring Nebula,M57,pn,M57,,planetary_nebula,
+Dumbbell Nebula,M27,pn,M27,,planetary_nebula,
+Helix Nebula,NGC 7293,pn,NGC 7293,,planetary_nebula,
+Cat's Eye Nebula,NGC 6543,pn,NGC 6543,,planetary_nebula,
+NGC 7027,,pn,NGC 7027,,planetary_nebula,Young dense PN

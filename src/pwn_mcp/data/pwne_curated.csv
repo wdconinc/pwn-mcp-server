@@ -1,0 +1,42 @@
+# Hand-curated pulsar wind nebula list: names, associations and morphological class only.
+# Numerical columns of pwne.csv are filled by scripts/build_local_catalog.py from SIMBAD,
+# Green's SNR catalogue (VizieR VII/297), the ATNF pulsar catalogue and H.E.S.S. HGPS.
+# pwn_type: filled-center | composite | relic | bow-shock
+name,aliases,pwn_type,green_snr,pulsar,simbad_id,color_template,notes
+Crab Nebula,M1;3C 144;SN 1054,filled-center,G184.6-05.8,J0534+2200,M1,crab_composite,Prototype PWN; remnant of SN 1054
+3C 58,G130.7+3.1;SN 1181?,filled-center,G130.7+03.1,J0205+6449,3C 58,,
+G21.5-0.9,,composite,G021.5-00.9,J1833-1034,,,Faint X-ray shell around a bright PWN
+Kes 75,G29.7-0.3,composite,G029.7-00.3,J1846-0258,,,High-B pulsar with magnetar-like outbursts
+G54.1+0.3,,filled-center,G054.1+00.3,J1930+1852,,,Crab-like
+MSH 15-52,G320.4-1.2;RCW 89,composite,G320.4-01.2,J1513-5908,,,"Hand of God" X-ray PWN
+Vela PWN,Vela X,composite,G263.9-03.3,J0835-4510,,,Nearby; Vela X is the offset relic radio PWN
+G11.2-0.3,,composite,G011.2-00.3,J1811-1925,,,Possibly SN 386
+G292.0+1.8,MSH 11-54,composite,G292.0+01.8,J1124-5916,,,Oxygen-rich SNR
+G0.9+0.1,,composite,G000.9+00.1,J1747-2809,,,Galactic Centre region
+CTA 1,G119.5+10.2,composite,G119.5+10.2,J0007+7303,,,Radio-quiet gamma-ray pulsar
+Boomerang,G106.65+2.96,composite,G106.3+02.7,J2229+6114,,,
+G310.6-1.6,,composite,G310.6-01.6,J1400-6325,,,
+G76.9+1.0,,composite,G076.9+01.0,J2022+3842,,,
+CTB 80,G69.0+2.7,composite,G069.0+02.7,J1952+3252,,,Pulsar B1951+32
+W44 PWN,G34.7-0.4,composite,G034.7-00.4,J1856+0113,,,Pulsar B1853+01
+G338.3-0.0,HESS J1640-465,composite,G338.3-00.0,J1640-4631,,,
+DA 495,G65.7+1.2,filled-center,G065.7+01.2,,DA 495,,No pulsar detected
+G63.7+1.1,,filled-center,G063.7+01.1,,,,No pulsar detected
+CTB 87,G74.9+1.2,filled-center,G074.9+01.2,,CTB 87,,No pulsar detected
+G141.2+5.0,,filled-center,,,G141.2+5.0,,PWN discovered in the CGPS (Kothes et al. 2014); not in Green 2024
+IC 443 PWN,CXOU J061705.3+222127,composite,G189.1+03.0,,,,Compact X-ray PWN in IC 443
+G327.1-1.1,,composite,G327.1-01.1,,,,Displaced PWN with prong-like structure
+MSH 15-56,G326.3-1.8,composite,G326.3-01.8,,,,
+HESS J1825-137,,relic,,J1826-1334,HESS J1825-137,,Large offset TeV PWN
+HESS J1303-631,,relic,,J1301-6305,HESS J1303-631,,
+HESS J1356-645,,relic,,J1357-6429,HESS J1356-645,,
+Dragonfly,G75.2+0.1,composite,,J2021+3651,,,
+Geminga,,bow-shock,,J0633+1746,,,X-ray tails and extended TeV halo
+Mouse,G359.23-0.82,bow-shock,,J1747-2958,,,
+Guitar Nebula,,bow-shock,,J2225+6535,,,H-alpha bow shock of B2224+65
+Duck,G5.4-1.2,bow-shock,G005.4-01.2,J1801-2451,,,Pulsar B1757-24 leaving its SNR
+Lighthouse Nebula,IGR J11014-6103,bow-shock,G290.1-00.8,J1101-6101,,,Misaligned outflow; host SNR MSH 11-61A
+B0355+54,,bow-shock,,J0358+5413,,,Long X-ray tail
+S147 PWN,,bow-shock,G180.0-01.7,J0538+2817,,,Compact PWN in S147
+SNR 0540-69.3,N158A,filled-center,,J0540-6919,SNR B0540-69.3,,LMC; 'Crab twin'
+N157B,,composite,,J0537-6910,,,LMC; fastest young rotation-powered pulsar

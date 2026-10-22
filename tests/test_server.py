@@ -43,3 +43,17 @@ def test_image_tools_return_png_and_metadata():
         assert result.content[0].type == "image"
         assert result.content[0].mime_type == "image/png"
         assert "saved_to" in json.loads(result.content[1].text)
+
+
+def test_catalog_tools_offline():
+    data = json.loads(call("search_nebulae", {"kind": "pwn", "in_cgps": True}).content[0].text)
+    assert data["count"] >= 10
+    rec = json.loads(call("get_nebula", {"name": "Kes 75"}).content[0].text)
+    assert rec["pulsar"] == "J1846-0258" and rec["cgps"]["in_cgps"] is False
+    cov = json.loads(call("cgps_coverage", {"l": 130.7, "b": 3.1}).content[0].text)
+    assert cov["in_cgps"] is True
+
+
+def test_live_tool_reports_offline():
+    result = call("get_pulsar", {"name": "J9999+9999"})
+    assert result.is_error

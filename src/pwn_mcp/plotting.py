@@ -23,30 +23,36 @@ INK_MUTED = "#8a8985"
 GRID = "#e4e3df"
 SURFACE = "#fcfcfb"
 
-OBSERVER_COLORS = {"cie1931_2": SERIES[0], "cie1964_10": SERIES[1],
-                   "cie2015_2": SERIES[2], "cie2015_10": SERIES[6]}
+OBSERVER_COLORS = {
+    "cie1931_2": SERIES[0],
+    "cie1964_10": SERIES[1],
+    "cie2015_2": SERIES[2],
+    "cie2015_10": SERIES[6],
+}
 OBSERVER_STYLES = {"cie1931_2": "-", "cie1964_10": "--", "cie2015_2": "-.", "cie2015_10": ":"}
 
-plt.rcParams.update({
-    "figure.facecolor": SURFACE,
-    "axes.facecolor": SURFACE,
-    "savefig.facecolor": SURFACE,
-    "axes.edgecolor": INK_MUTED,
-    "axes.labelcolor": INK_SECONDARY,
-    "axes.titlecolor": INK,
-    "axes.grid": True,
-    "grid.color": GRID,
-    "grid.linewidth": 0.6,
-    "axes.spines.top": False,
-    "axes.spines.right": False,
-    "xtick.color": INK_SECONDARY,
-    "ytick.color": INK_SECONDARY,
-    "lines.linewidth": 2.0,
-    "legend.frameon": False,
-    "font.size": 10,
-    "axes.titlesize": 11,
-    "figure.dpi": 110,
-})
+plt.rcParams.update(
+    {
+        "figure.facecolor": SURFACE,
+        "axes.facecolor": SURFACE,
+        "savefig.facecolor": SURFACE,
+        "axes.edgecolor": INK_MUTED,
+        "axes.labelcolor": INK_SECONDARY,
+        "axes.titlecolor": INK,
+        "axes.grid": True,
+        "grid.color": GRID,
+        "grid.linewidth": 0.6,
+        "axes.spines.top": False,
+        "axes.spines.right": False,
+        "xtick.color": INK_SECONDARY,
+        "ytick.color": INK_SECONDARY,
+        "lines.linewidth": 2.0,
+        "legend.frameon": False,
+        "font.size": 10,
+        "axes.titlesize": 11,
+        "figure.dpi": 110,
+    }
+)
 
 
 def slug(text: str) -> str:

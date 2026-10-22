@@ -37,5 +37,12 @@ markers = ["network: tests that contact remote astronomy services (run with -m n
 addopts = "-m 'not network'"
 
 [tool.ruff]
-line-length = 100
+line-length = 110
 target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "RUF"]
+ignore = [
+    "RUF001", "RUF002", "RUF003",  # Greek letters and symbols in astronomy strings are intended
+    "E741",  # `l` is Galactic longitude
+]

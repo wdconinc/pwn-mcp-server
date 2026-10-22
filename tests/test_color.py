@@ -28,9 +28,9 @@ def test_halpha_red_and_oiii_teal():
     oiii = c.observer_color(s.template_spectrum("oiii_only"), "cie1931_2")
     assert ha.dominant_wavelength_nm == pytest.approx(656, abs=1)
     assert oiii.dominant_wavelength_nm == pytest.approx(501, abs=1)
-    r, g, b = (int(ha.srgb_hex[i:i + 2], 16) for i in (1, 3, 5))
+    r, g, b = (int(ha.srgb_hex[i : i + 2], 16) for i in (1, 3, 5))
     assert r == 255 and g < 40
-    r, g, b = (int(oiii.srgb_hex[i:i + 2], 16) for i in (1, 3, 5))
+    r, g, b = (int(oiii.srgb_hex[i : i + 2], 16) for i in (1, 3, 5))
     assert r < 40 and g > 200 and b > 150
 
 

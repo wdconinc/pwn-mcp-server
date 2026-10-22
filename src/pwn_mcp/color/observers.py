@@ -36,8 +36,12 @@ OBSERVERS: dict[str, Observer] = {
     for o in (
         Observer("cie1931_2", "CIE 1931 2°", "CIE 1931 2 Degree Standard Observer", 2, 1931),
         Observer("cie1964_10", "CIE 1964 10°", "CIE 1964 10 Degree Standard Observer", 10, 1964),
-        Observer("cie2015_2", "CIE 2015 2° (cone-fundamental)", "CIE 2015 2 Degree Standard Observer", 2, 2015),
-        Observer("cie2015_10", "CIE 2015 10° (cone-fundamental)", "CIE 2015 10 Degree Standard Observer", 10, 2015),
+        Observer(
+            "cie2015_2", "CIE 2015 2° (cone-fundamental)", "CIE 2015 2 Degree Standard Observer", 2, 2015
+        ),
+        Observer(
+            "cie2015_10", "CIE 2015 10° (cone-fundamental)", "CIE 2015 10 Degree Standard Observer", 10, 2015
+        ),
     )
 }
 DEFAULT_OBSERVERS = ("cie1931_2", "cie1964_10")

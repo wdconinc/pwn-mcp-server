@@ -14,6 +14,8 @@ def figure_result(fig, stem: str, data: dict | None = None) -> list:
 
 
 def register_all(mcp) -> None:
-    from . import color
+    from . import catalog, color, live
 
+    catalog.register(mcp)
+    live.register(mcp)
     color.register(mcp)
