@@ -7,11 +7,12 @@ from typing import Annotated, Literal
 from mcp.server.mcpserver import MCPServer
 from pydantic import Field
 
-from ..color import plots
-from ..color.colorimetry import compare_observers
 from ..color.observers import DEFAULT_OBSERVERS, OBSERVERS
 from ..color.spectra import TEMPLATES, custom_spectrum, line_list, template_spectrum
-from . import figure_result, tool
+from . import figure_result, lazy_module, tool
+
+plots = lazy_module("pwn_mcp.color.plots")
+colorimetry = lazy_module("pwn_mcp.color.colorimetry")
 
 ObserverKey = Literal["cie1931_2", "cie1964_10", "cie2015_2", "cie2015_10"]
 Observers = Annotated[
@@ -104,7 +105,7 @@ def register(mcp: MCPServer) -> None:
             spec = custom_spectrum(
                 lines, fwhm_kms, synchrotron_alpha, continuum_fraction or 0.0, blackbody_k, ebv or 0.0
             )
-        return compare_observers(spec, observers, include_scotopic)
+        return colorimetry.compare_observers(spec, observers, include_scotopic)
 
     @tool(mcp, structured_output=False)
     def plot_chromaticity_comparison(

@@ -8,10 +8,12 @@ import numpy as np
 from mcp.server.mcpserver import MCPServer
 from pydantic import Field
 
-from ..imaging import fetch, render
 from ..imaging.surveys import SURVEYS, get_survey
-from . import figure_result, tool
+from . import figure_result, lazy_module, tool
 from .catalog import resolve_position
+
+fetch = lazy_module("pwn_mcp.imaging.fetch")
+render = lazy_module("pwn_mcp.imaging.render")
 
 SurveyKey = Literal[
     "cgps_1420",

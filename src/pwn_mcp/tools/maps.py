@@ -7,9 +7,11 @@ from typing import Annotated, Literal
 from mcp.server.mcpserver import MCPServer
 from pydantic import Field
 
-from ..catalog import live, local
-from ..imaging import maps
-from . import figure_result, tool
+from ..catalog import local
+from . import figure_result, lazy_module, tool
+
+live = lazy_module("pwn_mcp.catalog.live")
+maps = lazy_module("pwn_mcp.imaging.maps")
 
 Field_ = Literal[
     "edot_erg_s",

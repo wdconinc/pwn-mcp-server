@@ -2,15 +2,16 @@
 
 from __future__ import annotations
 
-from typing import Annotated, Literal
+from typing import TYPE_CHECKING, Annotated, Literal
 
-import astropy.units as u
-from astropy.coordinates import SkyCoord
 from mcp.server.mcpserver import MCPServer
 from pydantic import Field
 
 from ..catalog import cgps, local
 from . import tool
+
+if TYPE_CHECKING:
+    from astropy.coordinates import SkyCoord
 
 Kind = Literal["pwn", "snr", "hii", "pn"]
 PwnType = Literal["filled-center", "composite", "relic", "bow-shock"]
@@ -42,6 +43,9 @@ def resolve_position(
     name: str | None, ra: float | None, dec: float | None, l: float | None, b: float | None
 ) -> tuple[SkyCoord, dict | None]:
     """Turn a name or coordinates into a SkyCoord; bundled catalog first, then SIMBAD."""
+    import astropy.units as u
+    from astropy.coordinates import SkyCoord
+
     if ra is not None and dec is not None:
         return SkyCoord(ra * u.deg, dec * u.deg), None
     if l is not None and b is not None:

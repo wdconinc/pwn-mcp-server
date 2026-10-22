@@ -4,15 +4,15 @@ from __future__ import annotations
 
 from typing import Annotated, Literal
 
-import astropy.units as u
-from astropy.coordinates import SkyCoord
 from mcp.server.mcpserver import MCPServer
 from pydantic import Field
 
-from ..catalog import live, local
+from ..catalog import local
 from ..catalog.sources import VIZIER_SOURCES
-from . import tool
+from . import lazy_module, tool
 from .catalog import resolve_position, summarize
+
+live = lazy_module("pwn_mcp.catalog.live")
 
 CatalogKey = Literal["green_snr", "hgps", "sharpless", "wise_hii", "strasbourg_pn"]
 
@@ -63,6 +63,9 @@ def register(mcp: MCPServer) -> None:
         for cat in catalogs:
             try:
                 if cat == "bundled":
+                    import astropy.units as u
+                    from astropy.coordinates import SkyCoord
+
                     hits = []
                     for rec in local.records():
                         sep = coord.separation(SkyCoord(rec["ra"] * u.deg, rec["dec"] * u.deg)).arcmin

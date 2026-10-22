@@ -88,3 +88,19 @@ def test_map_and_population_tools_offline():
     # Live background requested while offline: still renders, with a note.
     note = json.loads(call("plot_ppdot", {"include_atnf": True}).content[1].text)["note"]
     assert note and "offline" in note.lower()
+
+
+def test_startup_does_not_import_heavy_stacks():
+    """Startup must stay well inside MCP client timeouts: colour, astropy coordinates/WCS,
+    matplotlib and the remote-query clients load on the first tool call that needs them."""
+    import subprocess
+    import sys
+
+    code = (
+        "import sys, pwn_mcp.server\n"
+        "heavy = ('colour', 'astropy.coordinates', 'astropy.wcs',\n"
+        "         'matplotlib.pyplot', 'astroquery', 'psrqpy')\n"
+        "print(','.join(m for m in heavy if m in sys.modules))"
+    )
+    out = subprocess.run([sys.executable, "-c", code], capture_output=True, text=True, check=True)
+    assert out.stdout.strip() == ""

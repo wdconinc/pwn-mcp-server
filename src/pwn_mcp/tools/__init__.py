@@ -3,14 +3,28 @@
 from __future__ import annotations
 
 import functools
+import importlib
 import logging
 
 from mcp.server.mcpserver import Image, MCPServer
 from mcp.server.mcpserver.exceptions import ToolError
 
-from ..plotting import save_figure
-
 log = logging.getLogger("pwn_mcp")
+
+
+class lazy_module:
+    """Import ``name`` on first attribute access.
+
+    The colour, astropy and matplotlib stacks take several seconds to import; deferring them
+    keeps server startup well inside MCP client startup timeouts, and each tool pays the cost
+    only when it first needs that stack.
+    """
+
+    def __init__(self, name: str):
+        self._name = name
+
+    def __getattr__(self, attr: str):
+        return getattr(importlib.import_module(self._name), attr)
 
 
 def tool(mcp: MCPServer, **kwargs):
@@ -41,6 +55,8 @@ def tool(mcp: MCPServer, **kwargs):
 
 def figure_result(fig, stem: str, data: dict | None = None) -> list:
     """Standard image-tool result: the PNG plus a JSON block with metadata and the saved path."""
+    from ..plotting import save_figure
+
     png, path = save_figure(fig, stem)
     return [Image(data=png, format="png"), {"saved_to": str(path), **(data or {})}]
 

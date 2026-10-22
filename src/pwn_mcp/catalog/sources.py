@@ -3,9 +3,10 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from typing import TYPE_CHECKING
 
-import astropy.units as u
-from astropy.coordinates import SkyCoord
+if TYPE_CHECKING:
+    from astropy.coordinates import SkyCoord
 
 
 @dataclass(frozen=True)
@@ -23,6 +24,9 @@ class VizierSource:
     glat_col: str | None = None
 
     def coord(self, row) -> SkyCoord | None:
+        import astropy.units as u
+        from astropy.coordinates import SkyCoord
+
         try:
             if self.glon_col and self.glat_col:
                 return SkyCoord(

@@ -9,7 +9,6 @@ from __future__ import annotations
 from dataclasses import dataclass
 from functools import cache, lru_cache
 
-import colour
 import numpy as np
 
 WL_MIN, WL_MAX, WL_STEP = 360.0, 830.0, 0.1
@@ -61,6 +60,8 @@ def _resample(wl: np.ndarray, values: np.ndarray) -> np.ndarray:
 @cache
 def cmfs(key: str) -> np.ndarray:
     """Return an (N, 3) array of x̄, ȳ, z̄ on :func:`wavelength_grid`."""
+    import colour
+
     msds = colour.MSDS_CMFS[get_observer(key).colour_name]
     wl = np.asarray(msds.wavelengths, dtype=float)
     vals = np.asarray(msds.values, dtype=float)
@@ -70,6 +71,8 @@ def cmfs(key: str) -> np.ndarray:
 @cache
 def tabulated_cmfs(key: str) -> tuple[np.ndarray, np.ndarray]:
     """The CIE table at its native 1 nm sampling (for plotting spectral loci)."""
+    import colour
+
     msds = colour.MSDS_CMFS[get_observer(key).colour_name]
     return np.asarray(msds.wavelengths, dtype=float), np.asarray(msds.values, dtype=float)
 
@@ -77,6 +80,8 @@ def tabulated_cmfs(key: str) -> tuple[np.ndarray, np.ndarray]:
 @cache
 def white_point_xy(key: str) -> np.ndarray:
     """CIE D65 chromaticity for the given observer."""
+    import colour
+
     obs = get_observer(key)
     table = colour.CCS_ILLUMINANTS.get(obs.colour_name)
     if table is not None and "D65" in table:
@@ -91,6 +96,8 @@ def white_point_xy(key: str) -> np.ndarray:
 @lru_cache(maxsize=1)
 def photopic_v() -> np.ndarray:
     """CIE 1924 photopic luminous efficiency V(λ)."""
+    import colour
+
     sd = colour.SDS_LEFS["CIE 1924 Photopic Standard Observer"]
     return _resample(np.asarray(sd.wavelengths, float), np.asarray(sd.values, float))
 
@@ -98,6 +105,8 @@ def photopic_v() -> np.ndarray:
 @lru_cache(maxsize=1)
 def scotopic_v() -> np.ndarray:
     """CIE 1951 scotopic (rod) luminous efficiency V'(λ)."""
+    import colour
+
     sd = colour.SDS_LEFS["CIE 1951 Scotopic Standard Observer"]
     return _resample(np.asarray(sd.wavelengths, float), np.asarray(sd.values, float))
 
