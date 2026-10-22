@@ -1,6 +1,6 @@
 [project]
 name = "pwn-mcp-server"
-version = "0.1.0"
+dynamic = ["version"]
 description = "MCP server for querying and visualizing pulsar wind nebulae and other nebulae, with CIE 1931/1964 colorimetry of nebular spectra"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -25,8 +25,12 @@ pwn-mcp = "pwn_mcp.server:main"
 dev = ["pytest>=8", "ruff>=0.5"]
 
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling", "hatch-vcs"]
 build-backend = "hatchling.build"
+
+[tool.hatch.version]
+source = "vcs"
+raw-options = { local_scheme = "no-local-version" }
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/pwn_mcp"]
@@ -46,3 +50,7 @@ ignore = [
     "RUF001", "RUF002", "RUF003",  # Greek letters and symbols in astronomy strings are intended
     "E741",  # `l` is Galactic longitude
 ]
+
+[tool.uv]
+# Rebuild when commits or tags change, so the tag-derived version stays current.
+cache-keys = [{ file = "pyproject.toml" }, { git = { commit = true, tags = true } }]
