@@ -57,3 +57,34 @@ def test_catalog_tools_offline():
 def test_live_tool_reports_offline():
     result = call("get_pulsar", {"name": "J9999+9999"})
     assert result.is_error
+
+
+def test_resources_and_prompts():
+    async def run():
+        async with Client(mcp) as client:
+            uris = {str(r.uri) for r in (await client.list_resources()).resources}
+            csv = await client.read_resource("pwn://catalog/pwne")
+            prompts = {p.name for p in (await client.list_prompts()).prompts}
+            msg = await client.get_prompt("summarize_pwn", {"name": "Kes 75"})
+            return uris, csv, prompts, msg
+
+    uris, csv, prompts, msg = anyio.run(run)
+    assert {"pwn://catalog/pwne", "pwn://surveys", "pwn://references", "pwn://lines"} <= uris
+    assert "Crab Nebula" in csv.contents[0].text
+    assert {"summarize_pwn", "compare_nebula_colors"} <= prompts
+    assert "Kes 75" in msg.messages[0].content.text
+
+
+def test_map_and_population_tools_offline():
+    for name, args in (
+        ("plot_galactic_map", {}),
+        ("plot_galactic_map", {"projection": "allsky"}),
+        ("plot_ppdot", {"include_atnf": False}),
+        ("plot_population", {}),
+    ):
+        result = call(name, args)
+        assert not result.is_error, result.content
+        assert result.content[0].type == "image"
+    # Live background requested while offline: still renders, with a note.
+    note = json.loads(call("plot_ppdot", {"include_atnf": True}).content[1].text)["note"]
+    assert note and "offline" in note.lower()

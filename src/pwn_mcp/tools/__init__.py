@@ -46,9 +46,10 @@ def figure_result(fig, stem: str, data: dict | None = None) -> list:
 
 
 def register_all(mcp: MCPServer) -> None:
-    from . import catalog, color, imaging, live
+    from . import catalog, color, imaging, live, maps
 
     catalog.register(mcp)
     live.register(mcp)
     color.register(mcp)
     imaging.register(mcp)
+    maps.register(mcp)

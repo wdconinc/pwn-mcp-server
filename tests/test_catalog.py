@@ -44,3 +44,10 @@ def test_cgps_footprint():
     assert not cgps.in_cgps(184.6, -5.8)
     assert cgps.in_cgps(184.6, -5.8, band="408 MHz")
     assert cgps.in_cgps(110.0, 15.0)  # high-latitude extension
+
+
+def test_split_at_anticenter():
+    from pwn_mcp.imaging.maps import _split_at_anticenter
+
+    assert _split_at_anticenter(52, 192) == [(52.0, 180.0), (-180.0, -168.0)]
+    assert _split_at_anticenter(100, 116.5) == [(100.0, 116.5)]

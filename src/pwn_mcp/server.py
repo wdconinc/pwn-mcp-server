@@ -6,7 +6,7 @@ from importlib.metadata import PackageNotFoundError, version
 
 from mcp.server.mcpserver import MCPServer
 
-from pwn_mcp import tools
+from pwn_mcp import resources, tools
 
 try:
     __version__ = version("pwn-mcp-server")
@@ -22,6 +22,7 @@ standard observers.
 
 mcp = MCPServer(name="pwn-mcp", version=__version__, instructions=INSTRUCTIONS)
 tools.register_all(mcp)
+resources.register(mcp)
 
 
 @mcp.tool()
