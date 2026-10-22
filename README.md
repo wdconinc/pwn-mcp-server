@@ -49,6 +49,15 @@ To inspect the tools interactively:
 npx @modelcontextprotocol/inspector uvx --from pwn-mcp-server pwn-mcp
 ```
 
+### Claude Code plugin
+
+[`claude-plugin/`](claude-plugin/) packages the server as the `pwn-nebulae` Claude Code plugin,
+which runs it with `uvx` from the `main` branch. To try it from a checkout:
+
+```bash
+claude --plugin-dir ./claude-plugin
+```
+
 ### Configuration
 
 | Variable | Default | Meaning |

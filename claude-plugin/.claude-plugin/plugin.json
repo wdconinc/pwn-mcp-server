@@ -1,0 +1,13 @@
+{
+  "name": "pwn-nebulae",
+  "version": "0.1.0",
+  "description": "Pulsar wind nebulae and other nebulae: catalogs (Green SNRs, ATNF, HGPS, SIMBAD), Canadian Galactic Plane Survey and multi-wavelength images, Galactic maps, P-Pdot plots, and nebular colours under the CIE 1931 2° and CIE 1964 10° observers.",
+  "author": {
+    "name": "Wouter Deconinck",
+    "email": "wouter.deconinck@umanitoba.ca"
+  },
+  "homepage": "https://github.com/wdconinc/pwn-mcp-server",
+  "repository": "https://github.com/wdconinc/pwn-mcp-server",
+  "license": "MIT",
+  "keywords": ["astronomy", "pulsar wind nebulae", "supernova remnants", "CGPS", "radio", "colorimetry", "CIE"]
+}
