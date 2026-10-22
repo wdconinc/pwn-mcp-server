@@ -6,6 +6,8 @@ from importlib.metadata import PackageNotFoundError, version
 
 from mcp.server.mcpserver import MCPServer
 
+from pwn_mcp import tools
+
 try:
     __version__ = version("pwn-mcp-server")
 except PackageNotFoundError:  # pragma: no cover - running from a source tree
@@ -19,6 +21,7 @@ standard observers.
 """
 
 mcp = MCPServer(name="pwn-mcp", version=__version__, instructions=INSTRUCTIONS)
+tools.register_all(mcp)
 
 
 @mcp.tool()

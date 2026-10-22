@@ -1,0 +1,21 @@
+# Optical emission lines, air wavelengths in nm (NIST ASD / Osterbrock & Ferland 2006, Table 4.x)
+key,label,wavelength_nm,ion
+OII_3727,[O II] 3727,372.71,O+
+NeIII_3869,[Ne III] 3869,386.88,Ne++
+H_delta,Hδ,410.17,H
+H_gamma,Hγ,434.05,H
+OIII_4363,[O III] 4363,436.32,O++
+HeII_4686,He II 4686,468.57,He+
+H_beta,Hβ,486.13,H
+OIII_4959,[O III] 4959,495.89,O++
+OIII_5007,[O III] 5007,500.68,O++
+HeI_5876,He I 5876,587.56,He
+OI_6300,[O I] 6300,630.03,O
+OI_6364,[O I] 6364,636.38,O
+NII_6548,[N II] 6548,654.80,N+
+H_alpha,Hα,656.28,H
+NII_6584,[N II] 6584,658.35,N+
+HeI_6678,He I 6678,667.82,He
+SII_6716,[S II] 6716,671.64,S+
+SII_6731,[S II] 6731,673.08,S+
+ArIII_7136,[Ar III] 7136,713.58,Ar++
