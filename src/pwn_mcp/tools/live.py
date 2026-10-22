@@ -11,13 +11,14 @@ from pydantic import Field
 
 from ..catalog import live, local
 from ..catalog.sources import VIZIER_SOURCES
+from . import tool
 from .catalog import resolve_position, summarize
 
 CatalogKey = Literal["green_snr", "hgps", "sharpless", "wise_hii", "strasbourg_pn"]
 
 
 def register(mcp: MCPServer) -> None:
-    @mcp.tool()
+    @tool(mcp)
     def list_catalogs() -> dict:
         """Catalogs available to cone_search and query_vizier, plus the bundled tables."""
         return {
@@ -33,7 +34,7 @@ def register(mcp: MCPServer) -> None:
             "bundled": local.provenance(),
         }
 
-    @mcp.tool()
+    @tool(mcp)
     def cone_search(
         name: str | None = None,
         ra: float | None = None,
@@ -78,7 +79,7 @@ def register(mcp: MCPServer) -> None:
             del out["errors"]
         return out
 
-    @mcp.tool()
+    @tool(mcp)
     def query_vizier(
         catalog: CatalogKey,
         constraints: Annotated[
@@ -94,7 +95,7 @@ def register(mcp: MCPServer) -> None:
         rows = live.vizier_table(catalog, constraints, limit)
         return {"catalog": VIZIER_SOURCES[catalog].title, "count": len(rows), "rows": rows}
 
-    @mcp.tool()
+    @tool(mcp)
     def get_pulsar(
         name: Annotated[str, Field(description="PSR J or B name, e.g. J0534+2200 or B0531+21.")],
     ) -> dict:

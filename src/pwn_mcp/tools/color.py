@@ -11,7 +11,7 @@ from ..color import plots
 from ..color.colorimetry import compare_observers
 from ..color.observers import DEFAULT_OBSERVERS, OBSERVERS
 from ..color.spectra import TEMPLATES, custom_spectrum, line_list, template_spectrum
-from . import figure_result
+from . import figure_result, tool
 
 ObserverKey = Literal["cie1931_2", "cie1964_10", "cie2015_2", "cie2015_10"]
 Observers = Annotated[
@@ -26,7 +26,7 @@ def _template_spectra(templates: list[str], reddened: bool):
 
 
 def register(mcp: MCPServer) -> None:
-    @mcp.tool()
+    @tool(mcp)
     def list_spectrum_templates() -> dict:
         """List synthetic nebular spectrum templates (H II region, planetary nebula, SNR shock,
         Crab Nebula filaments/synchrotron, single lines) and the known emission lines."""
@@ -52,7 +52,7 @@ def register(mcp: MCPServer) -> None:
             "note": "Template line strengths are representative, not measurements of one position.",
         }
 
-    @mcp.tool()
+    @tool(mcp)
     def nebula_color(
         template: Annotated[
             str | None, Field(description="Template key; omit to build a custom spectrum.")
@@ -106,7 +106,7 @@ def register(mcp: MCPServer) -> None:
             )
         return compare_observers(spec, observers, include_scotopic)
 
-    @mcp.tool(structured_output=False)
+    @tool(mcp, structured_output=False)
     def plot_chromaticity_comparison(
         templates: TemplateKeys = (
             "hii_region",
@@ -133,7 +133,7 @@ def register(mcp: MCPServer) -> None:
             },
         )
 
-    @mcp.tool(structured_output=False)
+    @tool(mcp, structured_output=False)
     def plot_cmf_comparison(observers: Observers = DEFAULT_OBSERVERS) -> list:
         """Overlay the x̄ȳz̄ colour-matching functions of the chosen observers, with the main
         nebular emission lines marked."""
@@ -141,7 +141,7 @@ def register(mcp: MCPServer) -> None:
             plots.plot_cmf_comparison(observers), "cmf_comparison", {"observers": list(observers)}
         )
 
-    @mcp.tool(structured_output=False)
+    @tool(mcp, structured_output=False)
     def render_color_swatches(
         templates: TemplateKeys = (
             "hii_region",
@@ -167,7 +167,7 @@ def register(mcp: MCPServer) -> None:
             },
         )
 
-    @mcp.tool(structured_output=False)
+    @tool(mcp, structured_output=False)
     def plot_nebula_spectrum(
         template: str,
         observers: Observers = DEFAULT_OBSERVERS,

@@ -51,3 +51,21 @@ def test_offline_flag_blocks(monkeypatch):
     monkeypatch.setattr(config, "OFFLINE", True)
     with pytest.raises(live.OfflineError):
         live.simbad_lookup(f"uncached-{os.getpid()}")
+
+
+def test_cgps_cadc_cutout():
+    from pwn_mcp.imaging import fetch
+    from pwn_mcp.imaging.surveys import get_survey
+
+    c = SkyCoord(l=54.1 * u.deg, b=0.27 * u.deg, frame="galactic")
+    cut = fetch.fetch(get_survey("cgps_1420"), c, 0.3)
+    assert cut.backend == "CADC" and cut.data.ndim == 2 and "K" in cut.unit
+
+
+def test_hips_cutout_rgb():
+    from pwn_mcp.imaging import fetch
+    from pwn_mcp.imaging.surveys import get_survey
+
+    c = SkyCoord(83.633 * u.deg, 22.0145 * u.deg)
+    cut = fetch.fetch(get_survey("dss2_color"), c, 0.2, npix=100)
+    assert cut.data.shape == (100, 100, 3)

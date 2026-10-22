@@ -10,6 +10,7 @@ from mcp.server.mcpserver import MCPServer
 from pydantic import Field
 
 from ..catalog import cgps, local
+from . import tool
 
 Kind = Literal["pwn", "snr", "hii", "pn"]
 PwnType = Literal["filled-center", "composite", "relic", "bow-shock"]
@@ -59,7 +60,7 @@ def resolve_position(
 
 
 def register(mcp: MCPServer) -> None:
-    @mcp.tool()
+    @tool(mcp)
     def search_nebulae(
         query: Annotated[
             str | None, Field(description="Substring of a name, alias, SNR, pulsar or TeV id.")
@@ -87,7 +88,7 @@ def register(mcp: MCPServer) -> None:
         )
         return {"count": len(hits), "results": [summarize(h) for h in hits], "provenance": local.provenance()}
 
-    @mcp.tool()
+    @tool(mcp)
     def get_nebula(
         name: Annotated[
             str, Field(description="Name, alias, Green SNR id (e.g. G21.5-0.9), PSR J name or HGPS id.")
@@ -113,7 +114,7 @@ def register(mcp: MCPServer) -> None:
             rec = merge.enrich(rec)
         return rec
 
-    @mcp.tool()
+    @tool(mcp)
     def cgps_coverage(
         name: str | None = None,
         ra: float | None = None,
